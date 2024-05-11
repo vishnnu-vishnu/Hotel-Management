@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends "home.html" %}
+{% block content %}
+<html>
+<head>
+    <title>Add Product</title>
+</head>
+<body>
+
+
+
+<div style="width:700px; height:1000px; margin-left:50px;  border: 2px solid grey; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);   ">
+    <h1 style="text-align:center;">Add Products</h1>
+    <form action="{% url 'updatepro' dataid=data.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label  class="col-sm-3 col-form-label">Product Category:</label><br><br>
+        <select class="form-control" name="ProductCategory">
+            <option>{{data.productcategory}}</option>
+            <option>Select Category</option>
+            {% for i in cat %}
+            <option>{{i.categoryname}}</option>
+            {% endfor %}
+        </select>
+        <br><br><br>
+
+        <label for="product category"  class="col-sm-3 col-form-label">ProductName:</label>
+        <input type="text" class="form-control" name="ProductName" required value="{{data.productname}}">
+        <br><br><br>
+
+        <label for="product category"  class="col-sm-3 col-form-label">ProductDescription:</label>
+        <textarea class="form-control" name="description" required>{{data.productdescription}}</textarea>
+        <br><br><br>
+
+        <label for="product img"  class="col-sm-3 col-form-label">Product Image:</label>
+        <img src="{{data.productimg.url}}" style="width:50px; height:50px;">
+        <input type="file" id="product img" class="form-control" name="ProductImg" >
+        <br><br><br>
+
+        <label for="product price"  class="col-sm-3 col-form-label">Product Price:</label>
+        <input type="text" id="product price" class="form-control" name="ProductPrice" required value="{{data.productprice}}">
+        <br><br><br>
+
+        <!-- You can add more input fields for other category information here -->
+
+        <button type="submit" class="btn btn-primary mr-2" style="background-color:#f35525; border-width:0px">Update</button>
+    </form>
+</div>
+
+</body>
+</html>
+{% endblock %}

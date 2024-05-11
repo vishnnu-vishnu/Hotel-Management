@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends "home.html" %}
+{% block content %}
+<html>
+<head>
+    <title>Display Page</title>
+     <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div style="width:600px; margin-left:400px; border: 2px solid grey; border-radius: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);">
+        <table border="2">
+
+        <tr>
+            <th>Category name</th>
+
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{i.categoryname}}</td>
+            <form action="{% url 'editpro' dataid=i.id %}">
+                <td>
+                    <button type="submit" class="btn btn-primary mr-2" style="background-color:#f35525; border-radius:5px">Delete</button>
+                </td>
+            </form>
+        </tr>
+
+        {% endfor %}
+    </table>
+    </div>
+</body>
+</html>
+{% endblock %}

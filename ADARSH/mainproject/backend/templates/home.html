@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Food Bee</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-villa-agency.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+
+  </head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <div class="sub-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <ul class="info">
+            <li><i class="fa fa-envelope"></i> info@company.com</li>
+            <li><i class="fa fa-map"></i> Sunny Isles Beach, FL 33160</li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <ul class="social-links">
+            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="https://x.com/minthu" target="_blank"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="" class="logo">
+                        <h1 >FoodBee</h1>
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                      <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                      <li><a href="{% url 'category' %} ">Add Here</a></li>
+                      <li><a href="{% url 'display' %} ">Display Category</a></li>
+                      <li><a href="{% url 'product' %} ">Display Product</a></li>
+                      <li><a href="{% url 'display_tablebooking' %}">Display Table Booking</a></li>
+                      <li><a href="{% url 'display_rating' %}">View Ratings</a></li>
+
+                      <li></li>
+
+                  </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+  {% block content %}
+
+  <div style="width:1400px; margin-left:50px; border: 2px solid grey; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); text-align: center;">
+    <table style="width: 100%; border-collapse: collapse;">
+    <tr tyle="background-color: #f2f2f2;">
+        <th>Name</th>
+        <th>Address</th>
+        <th>Product name</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+        <th>Status</th>
+
+    </tr>
+
+    {% for i in data %}
+    {% if not i.status == 'Delivered' %}
+
+    <tr>
+        <td>{{i.name}}</td>
+        <td>{{i.House_No}},{{i.street}},{{i.City}},{{i.Pincode}}</td>
+        <td>{{i.item}}</td>
+        <td>{{i.qty}}</td>
+        <td>{{i.total}}</td>
+        
+
+        
+        
+        <form method="post" action="{% url 'updatestatus' dataid=i.id %}">
+          {% csrf_token %}
+          <td>
+              <button type="submit" value="Making Food" name="approve"
+                  class="btn btn-class-outline-primary" style="background-color:green;"
+                  onclick="approve()">Making Food</button>
+          </td>
+          <td>
+            <button type="submit" value="Dispatched " name="approve"
+                class="btn btn-class-outline-primary" style="background-color:green;"
+                onclick="approve()">Dispatched</button>
+        </td>
+          <td>
+              <button type="submit" value="Delivered" name="approve"
+                  class="btn btn-class-outline-primary" style="background-color:red;"
+                  onclick="reject()">Delivered</button>
+          </td>
+      </form>
+
+
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+</div>
+
+
+
+<div style="width:1400px; margin-left:50px; border: 2px solid grey; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); text-align: center; margin-top: 100px;">
+  <h2>Delivered</h2>
+  <hr>
+  <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+  <tr tyle="background-color: #f2f2f2;">
+      <th>Name</th>
+      <th>Product name</th>
+      <th>Quantity</th>
+      <th>Total Price</th>
+      <th>Status</th>
+
+  </tr>
+
+  {% for i in data %}
+  {% if i.status == 'Delivered' %}
+
+  <tr>
+      <td>{{i.name}}</td>
+      <td>{{i.item}}</td>
+      <td>{{i.qty}}</td>
+      <td>{{i.total}}</td>
+      <td>{{i.status}}</td>
+
+      
+      
+      
+
+
+  </tr>
+  {% endif %}
+  {% endfor %}
+</table>
+
+</div>
+
+  {% endblock %}
+
+
+
+
+
+
+
+
+
+
+  <footer>
+    <div class="container">
+      <div class="col-lg-8">
+        <p>Copyright © 2048 Food Bee Co., Ltd. All rights reserved.
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/js/isotope.min.js' %}"></script>
+  <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+  <script src="{% static 'assets/js/counter.js' %}"></script>
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+
+  </body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        #cart {
+            width: 70%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .total {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="images/favicon.png" type="">
+
+    <title> FoodHub Online Delivery </title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css' %}" />
+    <!-- nice select  -->
+    <link rel="stylesheet" href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css' %}" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
+    <!-- font awesome style -->
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+</head>
+
+<body class="sub_page">
+
+    <div class="hero_area">
+        <div class="bg-box">
+            <img src="{% static 'images/hero-bg.jpg' %}" alt="">
+        </div>
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <a class="navbar-brand" href="index.html">
+                        <span>
+                            FoodHub
+                        </span>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class=""> </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav  mx-auto ">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'frontpage' %}">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'menupage' %}">Menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'aboutpage' %}">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'booktable' %}">Book Table</a>
+                            </li>
+                        </ul>
+                        <div class="user_option" style="margin-left:300px;">
+
+              <a class="cart_link" href="{% url 'cartpage' %}">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                  <g>
+                    <g>
+                      <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                   c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                   C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                   c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                   C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                   c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                    </g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                </svg>
+              </a>
+
+
+              {% if request.session.username %}
+              <a href="" class="user_link">
+                <i class="fa fa-user" aria-hidden="true">    {{request.session.username}}</i>
+              </a>
+              {% else %}
+              <a href="{% url 'logout' %}" class="order_online">
+                LogOut
+              </a>
+            {% endif %}
+            </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- end header section -->
+    </div>
+
+    <!-- book section -->
+    <div id="cart">
+        <h2>Your Cart</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Item</th>
+
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example item in the cart -->
+                
+
+                <form action="{% url 'savecheckout' %}" method="post">
+                    {% csrf_token %}
+                    {% for i in cat %}
+                    <input type="hidden" value="{{i.username}}" name="name">
+                    <input type="hidden" value="{{i.mobile}}" name="mobile">
+                    <input type="hidden" value=" {{i.email}}" name="email">
+                    <input type="hidden" value="{{i.address}}" name="address">
+                    {% endfor %}
+
+
+                    {% for i in data %}
+                <tr>
+
+                    <td><textarea readonly  name="item" style="border:none;" id="item">{{i.item}}</textarea></td>
+                    <td><textarea readonly  style="border:none;" id="total">{{i.price}}</textarea></td>
+                    <td><textarea readonly  name="qty" style="border:none;" id="qty">{{i.quantity}}</textarea></td>
+                    <td><textarea readonly  style="border:none;">{{i.total}}</textarea></td>
+                    
+                    <td>
+                        <a href="{% url 'deletecart' dataid=i.id %}">
+                            Remove
+                        </a>
+                    </td>
+
+                    {% endfor %}
+                </tr>
+
+                <!-- Add more items dynamically here -->
+            </tbody>
+        </table>
+        <div class="total">
+
+            <h4><textarea id="totalAmount" class="form-control" style="background-color:white; color:black; width:100px; margin-left:900px; border:none;" name="total" readonly ></textarea></h4>
+        </div>
+
+            <div style="text-align: center;">
+                <button class="btn btn-primary" style="background-color:#ffbe33;" onclick="initiateRazorpayPayment()">
+                    PLace Order
+                </button>
+                
+            </div>
+
+
+    </div>
+    </form>
+    
+
+    <!-- end book section -->
+
+    <!-- footer section -->
+    <footer class="footer_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 footer-col">
+                    <div class="footer_contact">
+                        <h4>
+                            Contact Us
+                        </h4>
+                        <div class="contact_link_box">
+                            <a href="">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <span>
+                                    Location
+                                </span>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <span>
+                                    Call +01 1234567890
+                                </span>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <span>
+                                    FoodHub@gmail.com
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 footer-col">
+                    <div class="footer_detail">
+                        <a href="" class="footer-logo">
+                            FoodHub Online Delivery
+                        </a>
+                        <p>
+                            Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+                        </p>
+                        <div class="footer_social">
+                            <a href="">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-instagram" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-pinterest" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 footer-col">
+                    <h4>
+                        Opening Hours
+                    </h4>
+                    <p>
+                        Everyday
+                    </p>
+                    <p>
+                        10.00 Am -10.00 Pm
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- footer section -->
+
+    
+
+    <!-- jQery -->
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <!-- popper js -->
+    <script src="{% static 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' %}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <!-- owl slider -->
+    <script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js' %}">
+    </script>
+    <!-- isotope js -->
+    <script src="{% static 'https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js' %}"></script>
+    <!-- nice select -->
+    <script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js' %}"></script>
+    <!-- custom js -->
+    <script src="{% static 'js/custom.js' %}"></script>
+    <!-- Google Map -->
+    <script src="{% static 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap' %}">
+    </script>
+    <script>
+        function checkout() {
+            alert('Redirecting to checkout page');
+            // Add logic to redirect to the checkout page
+        }
+
+        // Function to calculate the total price of items in the cart
+        function calculateTotal() {
+            var total = 0;
+            // Iterate over each row in the table
+            $('#cart tbody tr').each(function() {
+                // Get the price and quantity of the item in the current row
+                var price = parseFloat($(this).find('td:eq(1)').text());
+                var quantity = parseInt($(this).find('td:eq(2)').text());
+                // Calculate the subtotal for the current item
+                var subtotal = price * quantity;
+                // Add the subtotal to the total
+                total += subtotal;
+            });
+            // Update the total displayed on the page
+            $('#totalAmount').text('' + total.toFixed(2));
+        }
+
+        // Call the calculateTotal function when the page is loaded
+        $(document).ready(function() {
+            calculateTotal();
+        });
+    </script>
+    <script>
+    // Wait for the DOM to be fully loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the value from the span element
+        var totalAmount = document.getElementById('totalAmount').innerText;
+        // Set the value to the input element
+        document.getElementById('totalInput').value = totalAmount;
+    });
+</script>
+
+
+    <!-- End Google Map -->
+
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+{% for i in messages %}
+{% if i.tags == 'warning' %}
+<script>
+    swal('{{i}}', '', 'warning')
+</script>
+{% elif i.tags == 'error' %}
+<script>
+    swal('{{i}}', '', 'error')
+</script>
+{% elif i.tags == 'success' %}
+<script>
+    swal('{{i}}', '', 'success')
+</script>
+{% else %}
+<script>
+    swal('{{i}}', '', 'info')
+</script>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+</html>

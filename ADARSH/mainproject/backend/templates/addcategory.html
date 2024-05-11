@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% extends "home.html" %}
+{% block content %}
+<html>
+<head>
+    <title>Add Category</title>
+</head>
+<body>
+
+<div style="width: 600px; height: 400px; margin-left: 100px; border: 2px solid grey; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);">
+    <h1 style="text-align: center; margin-top:20px;">Add Categories</h1>
+    <form action="{% url 'savecategory' %}" method="post">
+        {% csrf_token %}
+        <label for="categoryName" style="margin-left: 50px; margin-top:20px;" class="col-sm-4 col-form-label">Category Name:</label>
+        <input type="text" id="categoryName" class="form-control" name="categoryName" required style="width: 500px; margin-left: 50px; margin-top:20px;">
+        <br><br><br>
+        <button type="submit" class="btn btn-primary mr-2" style="background-color: #f35525; border-width: 0px; margin-left: 220px;">Add Category</button>
+    </form>
+</div>
+
+<div style="width: 600px; margin-top:50px; height: 400px; margin-left: 100px; border: 2px solid grey; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);">
+    <h1 style="text-align: center; margin-top:20px;">Add Table</h1>
+    <form action="{% url 'addtable' %}" method="post">
+        {% csrf_token %}
+        <label for="" style="margin-left: 50px; margin-top:20px;" class="col-sm-4 col-form-label">Table Name:</label>
+        <input type="text" class="form-control" name="TableName" required style="width: 500px; margin-left: 50px; margin-top:20px;">
+         <label for="" style="margin-left: 50px; margin-top:20px;" class="col-sm-4 col-form-label">Table Capacity:</label>
+        <input type="text" id="" class="form-control" name="Tablecapacity" required style="width: 500px; margin-left: 50px; margin-top:20px;">
+
+        <br><br><br>
+        <button type="submit" class="btn btn-primary mr-2" style="background-color: #f35525; border-width: 0px; margin-left: 220px;">Add Category</button>
+    </form>
+</div>
+
+
+
+<div style="width:700px; height:1000px; margin-left:750px; margin-top:-850px; border: 2px solid grey; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);   ">
+    <h1 style="text-align:center;">Add Products</h1>
+    <form action="{% url 'saveproducts' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label style="" class="col-sm-3 col-form-label">Product Category:</label><br><br>
+        <select class="form-control" name="ProductCategory">
+            <option>Select Category</option>
+            {% for i in cat %}
+            <option>{{i.categoryname}}</option>
+            {% endfor %}
+        </select>
+        <br><br><br>
+
+        <label for="product category" style="" class="col-sm-3 col-form-label">ProductName:</label>
+        <input type="text" class="form-control" name="ProductName" required>
+        <br><br><br>
+
+        <label for="product category" style="" class="col-sm-3 col-form-label">ProductDescription:</label>
+        <textarea class="form-control" name="description" required></textarea>
+        <br><br><br>
+
+        <label for="product img" style="" class="col-sm-3 col-form-label">Product Image:</label>
+        <input type="file" id="product img" class="form-control" name="ProductImg" required>
+        <br><br><br>
+
+        <label for="product price" style="" class="col-sm-3 col-form-label">Product Price:</label>
+        <input type="text" id="product price" class="form-control" name="ProductPrice" required>
+        <br><br><br>
+
+        <!-- You can add more input fields for other category information here -->
+
+        <button type="submit" class="btn btn-primary mr-2" style="background-color:#f35525; border-width:0px">Add Product</button>
+    </form>
+</div>
+
+</body>
+</html>
+{% endblock %}

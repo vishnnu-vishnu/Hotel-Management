@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signup Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .form-group input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .form-group input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h2>Signup Form</h2>
+        <form action="{% url 'signupsave' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Pincode:</label>
+                <input type="text" id="password" name="Pincode" oninput="validatePincode(this)" required>
+                <span id="pincode-message" style="color: red; display: none;">No delivery to this pincode</span><br><br><br>
+            </div>
+
+           
+            
+            <div class="form-group">
+                <button type="submit" >Sign Up</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="path/to/your/js/script.js"></script>
+    <script>
+        function validatePincode(input) {
+            var pincodeInput = input.value.trim();
+            var allowedPincode = '679103'; // Allowed Pincode
+        
+            var pincodeMessage = document.getElementById('pincode-message');
+        
+            if (pincodeInput !== allowedPincode) {
+                input.classList.add('invalid-pincode');
+                pincodeMessage.style.display = 'inline';
+            } else {
+                input.classList.remove('invalid-pincode');
+                pincodeMessage.style.display = 'none';
+            }
+        }
+        </script>
+</body>
+</html>

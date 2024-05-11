@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% extends "home.html" %}
+{% block content %}
+<html>
+<head>
+    <title>Display Page</title>
+     <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div style="width:1400px; margin-left:50px; border: 2px solid grey; border-radius: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);">
+        <table >
+        <tr>
+            <th>Category name</th>
+            <th>Product name</th>
+            <th>Product description</th>
+            <th>Product Price</th>
+            <th>Image</th>
+
+        </tr>
+
+        {% for i in data %}
+
+        <tr>
+            <td>{{i.productcategory}}</td>
+            <td>{{i.productname}}</td>
+            <td>{{i.productdescription}}</td>
+            <td>{{i.productprice}}</td>
+
+            <td>
+                <img src="{{i.productimg.url}}" style="width:100px; height:100px;">
+            </td>
+            <form action="{% url 'editpro' dataid=i.id %}">
+                <td>
+                    <button type="submit" class="btn btn-primary mr-2" style="background-color:#f35525; border-width:0px">Edit</button>
+                </td>
+            </form>
+            <form action="{% url 'deletepro' dataid=i.id %}">
+                <td>
+                    <button type="submit" class="btn btn-primary mr-2" style="background-color:#f35525; border-width:0px" >Delete</button>
+                </td>
+            </form>
+
+
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+</body>
+</html>
+{% endblock %}
